@@ -1,0 +1,27 @@
+{
+    "name": "debezium-mongodb-source-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+      "tasks.max": "1",
+      "mongodb.connection.string": "mongodb://mongodb-source:27017",
+      
+      "topic.prefix": "mongo-source",
+      
+      "database.include.list": "test",
+      
+      "snapshot.mode": "never",
+      "incremental.snapshot.watermarking.strategy": "insert_insert",
+      "incremental.snapshot.chunk.size": "8192",
+      "incremental.snapshot.allow.schema.changes": "true",
+      
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": "true",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": "true",
+      "producer.override.max.request.size": "52428800",
+
+      "signal.enabled.channels": "source,kafka",
+      "signal.kafka.topic": "__debezium_signals",
+      "signal.kafka.bootstrap.servers": "kafka:29092"
+    }
+}

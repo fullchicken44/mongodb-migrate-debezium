@@ -1,0 +1,108 @@
+services:
+  # --- KAFKA AND ZOOKEEPER SERVICES ---
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-log:/var/lib/zookeeper/log
+    networks:
+      - cdc-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_HOURS: "24"
+      KAFKA_LOG_RETENTION_BYTES: "53687091200"
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    networks:
+      - cdc-net
+
+  kafka-connect:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kafka-connect
+    ports:
+      - "8083:8083"
+      - "9999:9999"
+    depends_on:
+      - kafka
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+      CONNECT_GROUP_ID: 1
+      CONNECT_CONFIG_STORAGE_TOPIC: my_connect_configs
+      CONNECT_OFFSET_STORAGE_TOPIC: my_connect_offsets
+      CONNECT_STATUS_STORAGE_TOPIC: my_connect_statuses 
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_PLUGIN_PATH: /usr/share/confluent-hub-components
+      # Add JMX configuration
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=9999"
+      JMX_PORT: 9999
+    networks:
+      - cdc-net
+
+  mongo-source:
+    build:
+      context: ./mongodb-testdb
+      dockerfile: Dockerfile
+    container_name: mongodb-source
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo1-data:/data/db
+    command: ["mongod", "--bind_ip_all", "--replSet", "rs0"]
+    networks:
+      - cdc-net
+
+  mongo-target:
+    image: percona/percona-server-mongodb:4.4
+    container_name: mongodb-target
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo2-data:/data/db
+    command: ["mongod", "--bind_ip_all"]
+    healthcheck:
+      test: ["CMD", "mongo", "--host", "localhost:27017", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - cdc-net
+
+volumes:
+  mongo1-data:
+  mongo2-data:
+  zookeeper-data:
+  zookeeper-log:
+  kafka-data:
+
+networks:
+  cdc-net:

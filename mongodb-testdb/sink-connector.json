@@ -1,0 +1,30 @@
+{
+    "name": "debezium-mongodb-sink-connector",
+    "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max": "1",
+      "topics": "mongo-source.sample_mflix.movies,mongo-source.sample_mflix.users,mongo-source.sample_mflix.comments",
+      "connection.uri": "mongodb://mongodb-target:27017",
+      
+      "change.data.capture.handler": "com.mongodb.kafka.connect.sink.cdc.debezium.mongodb.ChangeStreamHandler",
+      
+      "namespace.mapper": "com.mongodb.kafka.connect.sink.namespace.mapping.FieldPathNamespaceMapper",
+      "namespace.mapper.value.database.field": "source.db",
+      "namespace.mapper.value.collection.field": "source.collection",
+      
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": "true",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": "true",
+      
+      "database": "sample_mflix",
+      "collection": "",
+      "writemodel.strategy": "com.mongodb.kafka.connect.sink.writemodel.strategy.UpdateOneDefaultStrategy",
+      "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInKeyStrategy",
+      "update.one.upsert": "true",
+      
+      "errors.tolerance": "all",
+      "errors.log.enable": "true",
+      "errors.log.include.messages": "true"
+    }
+}

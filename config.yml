@@ -1,0 +1,115 @@
+startDelaySeconds: 0
+ssl: false
+lowercaseOutputName: false
+lowercaseOutputLabelNames: false
+rules:
+  # Debezium MongoDB Metrics
+  - pattern: "debezium\\.mongodb<.*type=connector-metrics.*server=([^,>]+).*task=([^,>]+).*context=([^,>]+).*>([^:]+)"
+    name: "debezium_metrics_$4"
+    labels:
+      name: "$1"
+      task: "$2"
+      context: "$3"
+
+  - pattern: "debezium\\.mongodb<.*type=connector-metrics.*context=([^,>]+).*server=([^,>]+).*>([^:]+)"
+    name: "debezium_metrics_$3"
+    labels:
+      name: "$2"
+      context: "$1"
+
+  # MongoDB Kafka Connect Metrics
+  - pattern: "com\\.mongodb\\.kafka\\.connect<.*>([^:]+)"
+    name: "mongodb_kafka_connect_$1"
+
+  # Kafka Connect Worker Metrics
+  - pattern: "kafka\\.connect<type=connect-worker-metrics>([^:]+):"
+    name: "kafka_connect_worker_$1"
+
+  # Kafka Connect Metrics
+  - pattern: "kafka\\.connect<type=connect-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_connect_$2"
+    labels:
+      client_id: "$1"
+
+  # Kafka Consumer Metrics
+  - pattern: "kafka\\.consumer<type=consumer-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_consumer_$2"
+    labels:
+      client_id: "$1"
+
+  - pattern: "kafka\\.consumer<type=consumer-coordinator-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_consumer_coordinator_$2"
+    labels:
+      client_id: "$1"
+
+  - pattern: "kafka\\.consumer<type=consumer-fetch-manager-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_consumer_fetch_$2"
+    labels:
+      client_id: "$1"
+
+  # Kafka Producer Metrics
+  - pattern: "kafka\\.producer<type=producer-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_producer_$2"
+    labels:
+      client_id: "$1"
+
+  - pattern: "kafka\\.producer<type=producer-topic-metrics, client-id=([^:]+), topic=([^>]+)><>([^:]+)"
+    name: "kafka_producer_topic_$3"
+    labels:
+      client_id: "$1"
+      topic: "$2"
+
+  # Kafka Admin Client Metrics
+  - pattern: "kafka\\.admin\\.client<type=admin-client-metrics, client-id=([^:]+)><>([^:]+)"
+    name: "kafka_admin_$2"
+    labels:
+      client_id: "$1"
+
+  # JVM Memory Metrics
+  - pattern: "java\\.lang<type=Memory><>([^:]+)"
+    name: "jvm_memory_$1"
+
+  - pattern: "java\\.lang<type=MemoryPool, name=([^>]+)><>([^:]+)"
+    name: "jvm_memory_pool_$2"
+    labels:
+      pool: "$1"
+
+  # JVM Garbage Collection Metrics
+  - pattern: "java\\.lang<type=GarbageCollector, name=([^>]+)><>([^:]+)"
+    name: "jvm_gc_$2"
+    labels:
+      gc: "$1"
+
+  # JVM Thread Metrics
+  - pattern: "java\\.lang<type=Threading><>([^:]+)"
+    name: "jvm_threads_$1"
+
+  # JVM Class Loading Metrics
+  - pattern: "java\\.lang<type=ClassLoading><>([^:]+)"
+    name: "jvm_classloading_$1"
+
+  # JVM Compilation Metrics
+  - pattern: "java\\.lang<type=Compilation><>([^:]+)"
+    name: "jvm_compilation_$1"
+
+  # JVM Operating System Metrics
+  - pattern: "java\\.lang<type=OperatingSystem><>([^:]+)"
+    name: "jvm_os_$1"
+
+  # JVM Runtime Metrics
+  - pattern: "java\\.lang<type=Runtime><>([^:]+)"
+    name: "jvm_runtime_$1"
+
+  # NIO Buffer Metrics
+  - pattern: "java\\.nio<type=BufferPool, name=([^>]+)><>([^:]+)"
+    name: "jvm_buffer_$2"
+    labels:
+      buffer_pool: "$1"
+
+  # Logging Metrics
+  - pattern: "java\\.util\\.logging<type=Logging><>([^:]+)"
+    name: "jvm_logging_$1"
+
+  # JFR Metrics
+  - pattern: "jdk\\.management\\.jfr<type=FlightRecorder><>([^:]+)"
+    name: "jvm_jfr_$1"

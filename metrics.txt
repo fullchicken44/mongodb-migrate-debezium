@@ -1,0 +1,239 @@
+$>domains
+#following domains are available
+JMImplementation
+com.mongodb.kafka.connect
+com.sun.management
+debezium.mongodb
+java.lang
+java.nio
+java.util.logging
+jdk.management.jfr
+kafka.admin.client
+kafka.connect
+kafka.consumer
+kafka.producer
+$>domain debezium.mongodb
+#domain is set to debezium.mongodb
+$>beans
+#domain = debezium.mongodb:
+debezium.mongodb:context=snapshot,server=master-sync-qnet_response_logs,task=0,type=connector-metrics
+debezium.mongodb:context=snapshot,server=master-sync-test-cdc,task=0,type=connector-metrics
+debezium.mongodb:context=snapshot,server=staging-vieon-source-db,task=0,type=connector-metrics
+debezium.mongodb:context=streaming,server=master-sync-ott-caching,task=0,type=connector-metrics
+debezium.mongodb:context=streaming,server=master-sync-qnet_response_logs,task=0,type=connector-metrics
+debezium.mongodb:context=streaming,server=master-sync-test-cdc,task=0,type=connector-metrics
+debezium.mongodb:context=streaming,server=master-sync-user-watching,task=0,type=connector-metrics
+debezium.mongodb:context=streaming,server=staging-vieon-source-db,task=0,type=connector-metrics^C
+quanle@staging-vieon-mongodb-cdc-main:~$ curl http://localhost:8080/metrics | grep debezium_metrics
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+# HELP debezium_metrics_Connected Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=Connected
+10# TYPE debezium_metrics_Connected untyped
+0 debezium_metrics_Connected{context="streaming",name="master-sync-ott-caching"} 1.0
+3debezium_metrics_Connected{context="streaming",name="master-sync-qnet_response_logs"} 1.0
+2debezium_metrics_Connected{context="streaming",name="master-sync-test-cdc"} 1.0
+0debezium_metrics_Connected{context="streaming",name="master-sync-user-watching"} 1.0
+2debezium_metrics_Connected{context="streaming",name="staging-vieon-source-db"} 1.0
+3# HELP debezium_metrics_CurrentQueueSizeInBytes Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=CurrentQueueSizeInBytes
+ # TYPE debezium_metrics_CurrentQueueSizeInBytes untyped
+ debezium_metrics_CurrentQueueSizeInBytes{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+10debezium_metrics_CurrentQueueSizeInBytes{context="snapshot",name="master-sync-test-cdc"} 0.0
+0debezium_metrics_CurrentQueueSizeInBytes{context="snapshot",name="staging-vieon-source-db"} 0.0
+ debezium_metrics_CurrentQueueSizeInBytes{context="streaming",name="master-sync-ott-caching"} 0.0
+3debezium_metrics_CurrentQueueSizeInBytes{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+2debezium_metrics_CurrentQueueSizeInBytes{context="streaming",name="master-sync-test-cdc"} 0.0
+0debezium_metrics_CurrentQueueSizeInBytes{context="streaming",name="master-sync-user-watching"} 0.0
+2debezium_metrics_CurrentQueueSizeInBytes{context="streaming",name="staging-vieon-source-db"} 0.0
+3# HELP debezium_metrics_LastEmptyPollTime Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=LastEmptyPollTime
+ # TYPE debezium_metrics_LastEmptyPollTime untyped
+ debezium_metrics_LastEmptyPollTime{context="streaming",name="master-sync-ott-caching"} 1062.0
+ debezium_metrics_LastEmptyPollTime{context="streaming",name="master-sync-qnet_response_logs"} 1063.0
+ debezium_metrics_LastEmptyPollTime{context="streaming",name="master-sync-test-cdc"} 1062.0
+0debezium_metrics_LastEmptyPollTime{context="streaming",name="master-sync-user-watching"} 1062.0
+ debezium_metrics_LastEmptyPollTime{context="streaming",name="staging-vieon-source-db"} 1062.0
+ # HELP debezium_metrics_LastSourceEventPollTime Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=LastSourceEventPollTime
+ # TYPE debezium_metrics_LastSourceEventPollTime untyped
+ debezium_metrics_LastSourceEventPollTime{context="streaming",name="master-sync-ott-caching"} 795.0
+ debezium_metrics_LastSourceEventPollTime{context="streaming",name="master-sync-qnet_response_logs"} 64.0
+0debezium_metrics_LastSourceEventPollTime{context="streaming",name="master-sync-test-cdc"} 115.0
+ debezium_metrics_LastSourceEventPollTime{context="streaming",name="master-sync-user-watching"} 0.0
+ debezium_metrics_LastSourceEventPollTime{context="streaming",name="staging-vieon-source-db"} 0.0
+ # HELP debezium_metrics_MaxQueueSizeInBytes Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=MaxQueueSizeInBytes
+6# TYPE debezium_metrics_MaxQueueSizeInBytes untyped
+3debezium_metrics_MaxQueueSizeInBytes{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+5debezium_metrics_MaxQueueSizeInBytes{context="snapshot",name="master-sync-test-cdc"} 0.0
+kdebezium_metrics_MaxQueueSizeInBytes{context="snapshot",name="staging-vieon-source-db"} 0.0
+ debezium_metrics_MaxQueueSizeInBytes{context="streaming",name="master-sync-ott-caching"} 0.0
+ debezium_metrics_MaxQueueSizeInBytes{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+ debezium_metrics_MaxQueueSizeInBytes{context="streaming",name="master-sync-test-cdc"} 0.0
+ debezium_metrics_MaxQueueSizeInBytes{context="streaming",name="master-sync-user-watching"} 0.0
+ debezium_metrics_MaxQueueSizeInBytes{context="streaming",name="staging-vieon-source-db"} 0.0
+ # HELP debezium_metrics_MilliSecondsBehindSource Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=MilliSecondsBehindSource
+0# TYPE debezium_metrics_MilliSecondsBehindSource untyped
+ debezium_metrics_MilliSecondsBehindSource{context="streaming",name="master-sync-ott-caching"} 715.0
+-debezium_metrics_MilliSecondsBehindSource{context="streaming",name="master-sync-qnet_response_logs"} 647.0
+-debezium_metrics_MilliSecondsBehindSource{context="streaming",name="master-sync-test-cdc"} 350.0
+:debezium_metrics_MilliSecondsBehindSource{context="streaming",name="master-sync-user-watching"} 1028.0
+-debezium_metrics_MilliSecondsBehindSource{context="streaming",name="staging-vieon-source-db"} -1.0
+-# HELP debezium_metrics_MilliSecondsSinceLastEvent Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=MilliSecondsSinceLastEvent
+:# TYPE debezium_metrics_MilliSecondsSinceLastEvent untyped
+-debezium_metrics_MilliSecondsSinceLastEvent{context="snapshot",name="master-sync-qnet_response_logs"} 1.02714806E8
+-debezium_metrics_MilliSecondsSinceLastEvent{context="snapshot",name="master-sync-test-cdc"} 1.00489034E8
+ debezium_metrics_MilliSecondsSinceLastEvent{context="snapshot",name="staging-vieon-source-db"} -1.0
+-debezium_metrics_MilliSecondsSinceLastEvent{context="streaming",name="master-sync-ott-caching"} 2495855.0
+-debezium_metrics_MilliSecondsSinceLastEvent{context="streaming",name="master-sync-qnet_response_logs"} 4.9013913E7
+:debezium_metrics_MilliSecondsSinceLastEvent{context="streaming",name="master-sync-test-cdc"} 1.00227233E8
+-debezium_metrics_MilliSecondsSinceLastEvent{context="streaming",name="master-sync-user-watching"} 9.8033566E7
+-debezium_metrics_MilliSecondsSinceLastEvent{context="streaming",name="staging-vieon-source-db"} -1.0
+:# HELP debezium_metrics_NumberOfCommittedTransactions Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=NumberOfCommittedTransactions
+-# TYPE debezium_metrics_NumberOfCommittedTransactions untyped
+-debezium_metrics_NumberOfCommittedTransactions{context="streaming",name="master-sync-ott-caching"} 0.0
+ debezium_metrics_NumberOfCommittedTransactions{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+-debezium_metrics_NumberOfCommittedTransactions{context="streaming",name="master-sync-test-cdc"} 0.0
+-debezium_metrics_NumberOfCommittedTransactions{context="streaming",name="master-sync-user-watching"} 0.0
+:debezium_metrics_NumberOfCommittedTransactions{context="streaming",name="staging-vieon-source-db"} 0.0
+-# HELP debezium_metrics_NumberOfDisconnects Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=NumberOfDisconnects
+-# TYPE debezium_metrics_NumberOfDisconnects untyped
+:debezium_metrics_NumberOfDisconnects{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+-debezium_metrics_NumberOfDisconnects{context="snapshot",name="master-sync-test-cdc"} 0.0
+-debezium_metrics_NumberOfDisconnects{context="snapshot",name="staging-vieon-source-db"} 0.0
+ debezium_metrics_NumberOfDisconnects{context="streaming",name="master-sync-ott-caching"} 0.0
+ debezium_metrics_NumberOfDisconnects{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+6debezium_metrics_NumberOfDisconnects{context="streaming",name="master-sync-test-cdc"} 0.0
+3debezium_metrics_NumberOfDisconnects{context="streaming",name="master-sync-user-watching"} 0.0
+8debezium_metrics_NumberOfDisconnects{context="streaming",name="staging-vieon-source-db"} 0.0
+k# HELP debezium_metrics_NumberOfEmptyPolls Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=NumberOfEmptyPolls
+
+# TYPE debezium_metrics_NumberOfEmptyPolls untyped
+debezium_metrics_NumberOfEmptyPolls{context="streaming",name="master-sync-ott-caching"} 87096.0
+debezium_metrics_NumberOfEmptyPolls{context="streaming",name="master-sync-qnet_response_logs"} 88199.0
+debezium_metrics_NumberOfEmptyPolls{context="streaming",name="master-sync-test-cdc"} 86297.0
+debezium_metrics_NumberOfEmptyPolls{context="streaming",name="master-sync-user-watching"} 84726.0
+debezium_metrics_NumberOfEmptyPolls{context="streaming",name="staging-vieon-source-db"} 109525.0
+# HELP debezium_metrics_NumberOfErroneousEvents Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=NumberOfErroneousEvents
+# TYPE debezium_metrics_NumberOfErroneousEvents untyped
+debezium_metrics_NumberOfErroneousEvents{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="snapshot",name="staging-vieon-source-db"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="streaming",name="master-sync-ott-caching"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="streaming",name="master-sync-test-cdc"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="streaming",name="master-sync-user-watching"} 0.0
+debezium_metrics_NumberOfErroneousEvents{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_NumberOfEventsFiltered Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=NumberOfEventsFiltered
+# TYPE debezium_metrics_NumberOfEventsFiltered untyped
+debezium_metrics_NumberOfEventsFiltered{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_NumberOfEventsFiltered{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_NumberOfEventsFiltered{context="snapshot",name="staging-vieon-source-db"} 0.0
+debezium_metrics_NumberOfEventsFiltered{context="streaming",name="master-sync-ott-caching"} 2944192.0
+debezium_metrics_NumberOfEventsFiltered{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_NumberOfEventsFiltered{context="streaming",name="master-sync-test-cdc"} 0.0
+debezium_metrics_NumberOfEventsFiltered{context="streaming",name="master-sync-user-watching"} 0.0
+debezium_metrics_NumberOfEventsFiltered{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_NumberOfPrimaryElections Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=NumberOfPrimaryElections
+# TYPE debezium_metrics_NumberOfPrimaryElections untyped
+debezium_metrics_NumberOfPrimaryElections{context="streaming",name="master-sync-ott-caching"} 0.0
+debezium_metrics_NumberOfPrimaryElections{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_NumberOfPrimaryElections{context="streaming",name="master-sync-test-cdc"} 0.0
+debezium_metrics_NumberOfPrimaryElections{context="streaming",name="master-sync-user-watching"} 0.0
+debezium_metrics_NumberOfPrimaryElections{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_QueueRemainingCapacity Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=QueueRemainingCapacity
+# TYPE debezium_metrics_QueueRemainingCapacity untyped
+debezium_metrics_QueueRemainingCapacity{context="snapshot",name="master-sync-qnet_response_logs"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="snapshot",name="master-sync-test-cdc"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="snapshot",name="staging-vieon-source-db"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="streaming",name="master-sync-ott-caching"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="streaming",name="master-sync-qnet_response_logs"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="streaming",name="master-sync-test-cdc"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="streaming",name="master-sync-user-watching"} 8192.0
+debezium_metrics_QueueRemainingCapacity{context="streaming",name="staging-vieon-source-db"} 8192.0
+# HELP debezium_metrics_QueueTotalCapacity Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=QueueTotalCapacity
+# TYPE debezium_metrics_QueueTotalCapacity untyped
+debezium_metrics_QueueTotalCapacity{context="snapshot",name="master-sync-qnet_response_logs"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="snapshot",name="master-sync-test-cdc"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="snapshot",name="staging-vieon-source-db"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="streaming",name="master-sync-ott-caching"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="streaming",name="master-sync-qnet_response_logs"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="streaming",name="master-sync-test-cdc"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="streaming",name="master-sync-user-watching"} 8192.0
+debezium_metrics_QueueTotalCapacity{context="streaming",name="staging-vieon-source-db"} 8192.0
+# HELP debezium_metrics_RemainingTableCount Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=RemainingTableCount
+# TYPE debezium_metrics_RemainingTableCount untyped
+debezium_metrics_RemainingTableCount{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_RemainingTableCount{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_RemainingTableCount{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_SnapshotAborted Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=SnapshotAborted
+# TYPE debezium_metrics_SnapshotAborted untyped
+debezium_metrics_SnapshotAborted{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_SnapshotAborted{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_SnapshotAborted{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_SnapshotCompleted Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=SnapshotCompleted
+# TYPE debezium_metrics_SnapshotCompleted untyped
+debezium_metrics_SnapshotCompleted{context="snapshot",name="master-sync-qnet_response_logs"} 1.0
+debezium_metrics_SnapshotCompleted{context="snapshot",name="master-sync-test-cdc"} 1.0
+debezium_metrics_SnapshotCompleted{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_SnapshotDurationInSeconds Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=SnapshotDurationInSeconds
+# TYPE debezium_metrics_SnapshotDurationInSeconds untyped
+debezium_metrics_SnapshotDurationInSeconds{context="snapshot",name="master-sync-qnet_response_logs"} 4.0
+debezium_metrics_SnapshotDurationInSeconds{context="snapshot",name="master-sync-test-cdc"} 4.0
+debezium_metrics_SnapshotDurationInSeconds{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_SnapshotPaused Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=SnapshotPaused
+# TYPE debezium_metrics_SnapshotPaused untyped
+debezium_metrics_SnapshotPaused{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_SnapshotPaused{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_SnapshotPaused{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_SnapshotPausedDurationInSeconds Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=SnapshotPausedDurationInSeconds
+# TYPE debezium_metrics_SnapshotPausedDurationInSeconds untyped
+debezium_metrics_SnapshotPausedDurationInSeconds{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_SnapshotPausedDurationInSeconds{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_SnapshotPausedDurationInSeconds{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_SnapshotRunning Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=SnapshotRunning
+# TYPE debezium_metrics_SnapshotRunning untyped
+debezium_metrics_SnapshotRunning{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_SnapshotRunning{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_SnapshotRunning{context="snapshot",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_TotalNumberOfCreateEventsSeen Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=TotalNumberOfCreateEventsSeen
+# TYPE debezium_metrics_TotalNumberOfCreateEventsSeen untyped
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="snapshot",name="staging-vieon-source-db"} 0.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="streaming",name="master-sync-ott-caching"} 198.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="streaming",name="master-sync-qnet_response_logs"} 170.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="streaming",name="master-sync-test-cdc"} 0.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="streaming",name="master-sync-user-watching"} 0.0
+debezium_metrics_TotalNumberOfCreateEventsSeen{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_TotalNumberOfDeleteEventsSeen Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=TotalNumberOfDeleteEventsSeen
+# TYPE debezium_metrics_TotalNumberOfDeleteEventsSeen untyped
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="snapshot",name="staging-vieon-source-db"} 0.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="streaming",name="master-sync-ott-caching"} 2954042.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="streaming",name="master-sync-test-cdc"} 1.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="streaming",name="master-sync-user-watching"} 2944000.0
+debezium_metrics_TotalNumberOfDeleteEventsSeen{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_TotalNumberOfEventsSeen Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=TotalNumberOfEventsSeen
+# TYPE debezium_metrics_TotalNumberOfEventsSeen untyped
+debezium_metrics_TotalNumberOfEventsSeen{context="snapshot",name="master-sync-qnet_response_logs"} 599.0
+debezium_metrics_TotalNumberOfEventsSeen{context="snapshot",name="master-sync-test-cdc"} 3.0
+debezium_metrics_TotalNumberOfEventsSeen{context="snapshot",name="staging-vieon-source-db"} 0.0
+debezium_metrics_TotalNumberOfEventsSeen{context="streaming",name="master-sync-ott-caching"} 2955998.0
+debezium_metrics_TotalNumberOfEventsSeen{context="streaming",name="master-sync-qnet_response_logs"} 170.0
+debezium_metrics_TotalNumberOfEventsSeen{context="streaming",name="master-sync-test-cdc"} 2.0
+debezium_metrics_TotalNumberOfEventsSeen{context="streaming",name="master-sync-user-watching"} 2944000.0
+debezium_metrics_TotalNumberOfEventsSeen{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_TotalNumberOfUpdateEventsSeen Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=TotalNumberOfUpdateEventsSeen
+# TYPE debezium_metrics_TotalNumberOfUpdateEventsSeen untyped
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="snapshot",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="snapshot",name="master-sync-test-cdc"} 0.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="snapshot",name="staging-vieon-source-db"} 0.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="streaming",name="master-sync-ott-caching"} 1758.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="streaming",name="master-sync-qnet_response_logs"} 0.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="streaming",name="master-sync-test-cdc"} 1.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="streaming",name="master-sync-user-watching"} 0.0
+debezium_metrics_TotalNumberOfUpdateEventsSeen{context="streaming",name="staging-vieon-source-db"} 0.0
+# HELP debezium_metrics_TotalTableCount Attribute exposed for management debezium.mongodb:name=null,type=connector-metrics,attribute=TotalTableCount
+# TYPE debezium_metrics_TotalTableCount untyped
+debezium_metrics_TotalTableCount{context="snapshot",name="master-sync-qnet_response_logs"} 1.0
+debezium_metrics_TotalTableCount{context="snapshot",name="master-sync-test-cdc"} 1.0
+debezium_metrics_TotalTableCount{context="snapshot",name="staging-vieon-source-db"} 0.0

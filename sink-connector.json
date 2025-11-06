@@ -1,0 +1,29 @@
+{
+    "name": "mongo-sink-qnet_response_logs",
+    "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max": "1",
+      "topics": "<your-topic-name>",
+
+      "connection.uri": "<your-mongodb-connection-string>",
+      
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": true,
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": true,
+
+      "database": "sink-fallback-db",
+      "collection": "",
+      "writemodel.strategy": "com.mongodb.kafka.connect.sink.writemodel.strategy.UpdateOneDefaultStrategy",
+      "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInKeyStrategy",
+      "update.one.upsert": "true",
+
+      "change.data.capture.handler": "com.mongodb.kafka.connect.sink.cdc.debezium.mongodb.ChangeStreamHandler",
+      "delete.on.null.values": "true",
+      "dead.letter.queue.topic.name": "dlq-debezium-sink-errors",
+      
+      "namespace.mapper": "com.mongodb.kafka.connect.sink.namespace.mapping.FieldPathNamespaceMapper",
+      "namespace.mapper.value.database.field": "source.db",
+      "namespace.mapper.value.collection.field": "source.collection"
+    }
+}

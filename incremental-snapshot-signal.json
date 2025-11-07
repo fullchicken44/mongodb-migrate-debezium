@@ -1,0 +1,7 @@
+{
+	"type": "execute-snapshot",
+	"data": {
+		"data-collections": ["<your-collection-name>"],
+		"type": "incremental"
+	}
+}

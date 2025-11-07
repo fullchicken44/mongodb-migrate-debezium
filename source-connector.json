@@ -18,8 +18,9 @@
       "value.converter.schemas.enable": "true",
       "producer.override.max.request.size": "52428800",
 
-      "signal.enabled.channels": "kafka",
+      "signal.enabled.channels": "source,kafka",
       "signal.kafka.topic": "__debezium_signals",
-      "signal.kafka.bootstrap.servers": "kafka:9092"
+      "signal.kafka.bootstrap.servers": "kafka:9092",
+      "signal.data.collection": "cdc.signals"
     }
 }

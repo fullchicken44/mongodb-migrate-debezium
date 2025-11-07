@@ -11,4 +11,5 @@ RUN confluent-hub install --no-prompt debezium/debezium-connector-mongodb:2.5.4
 ARG JMX_AGENT_VERSION=1.5.0
 COPY jmx_prometheus_javaagent-1.5.0.jar /kafka/etc/jmx_prometheus_javaagent.jar
 
+# Copy the config file for the JMX agent to expose metrics
 COPY config.yml /kafka/etc/config.yml

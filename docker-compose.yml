@@ -107,18 +107,6 @@ services:
       - kafka
       - kafka-connect
     
-        #  mongo1:
-        #    image: percona/percona-server-mongodb:4.4
-        #    container_name: mongo1
-        #    ports:
-        #      - "27017:27017"
-        #    volumes:
-        #      - mongo1-data:/data/db
-        #    networks:
-        #      - cdc-net
-        #    command: ["--replSet", "rs0", "--bind_ip_all"]
-
-
   prometheus:
     build:
       context: debezium-prometheus
@@ -161,7 +149,6 @@ volumes:
   zookeeper-data:
   zookeeper-log:
   kafka-data:
-    #  mongo1-data:
 
 networks:
   cdc-net:
